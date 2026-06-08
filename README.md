@@ -2,20 +2,40 @@
 
 The fullstack project using React+Spring boot for FPT-IS
 
-## Features
+## Summary system
+1. Dashboard
+- Tổng số interns
+- Tổng số departments
+- Tổng số mentors
+- Số intern theo status
 
-- Dashboard statistics
-- Department CRUD
-- Mentor CRUD
-- Intern CRUD
-- Search with debounce
-- Filter by department and status
+2. Departments CRUD
+- Thêm phòng ban
+- Sửa phòng ban
+- Xoá phòng ban
+- Search
 - Pagination
-- Form validation
-- Loading/error/success UI states
-- Global exception handling
-- PostgreSQL integration
-- Data seeding
+
+3. Mentors CRUD
+- Thêm mentor
+- Sửa mentor
+- Xoá mentor
+- Mentor thuộc department
+- Search
+- Filter theo department
+- Pagination
+
+4. Interns CRUD
+- Thêm thực tập sinh
+- Sửa thực tập sinh
+- Xoá thực tập sinh
+- Intern thuộc department
+- Intern có mentor
+- Status: ONBOARDING, ACTIVE, COMPLETED, DROPPED
+- Search
+- Filter theo department
+- Filter theo status
+- Pagination
 
 ## Tech Stack
 

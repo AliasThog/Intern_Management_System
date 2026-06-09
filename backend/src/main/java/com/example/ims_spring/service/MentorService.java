@@ -55,7 +55,7 @@ public class MentorService {
         );
 
         Mentor mentor = Mentor.builder()
-                .fullName(request.getFull_name().trim())
+                .fullName(request.getFullName().trim())
                 .email(email)
                 .phone(request.getPhone())
                 .department(department)
@@ -80,7 +80,7 @@ public class MentorService {
                 request.getDepartmentId()
         );
 
-        mentor.setFullName(request.getFull_name().trim());
+        mentor.setFullName(request.getFullName().trim());
         mentor.setEmail(email);
         mentor.setPhone(request.getPhone());
         mentor.setDepartment(department);

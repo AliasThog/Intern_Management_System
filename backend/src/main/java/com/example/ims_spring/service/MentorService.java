@@ -6,6 +6,7 @@ import com.example.ims_spring.entity.Department;
 import com.example.ims_spring.entity.Mentor;
 import com.example.ims_spring.exception.BadRequestException;
 import com.example.ims_spring.exception.ResourceNotFoundException;
+import com.example.ims_spring.repository.InternRepository;
 import com.example.ims_spring.repository.MentorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -20,6 +21,7 @@ import java.util.List;
 public class MentorService {
     private final MentorRepository mentorRepository;
     private final DepartmentService departmentService;
+    private final InternRepository internRepository;
 
     @Transactional(readOnly = true)
     public List<MentorResponse> getMentors(String search, Long departmentId) {
@@ -37,7 +39,7 @@ public class MentorService {
 
     @Transactional(readOnly = true)
     public List<MentorResponse> getAllMentors() {
-        return mentorRepository.findAll(Sort.by("fullName").ascending())
+        return mentorRepository.findAllWithDepartment()
                 .stream()
                 .map(this::toResponse)
                 .toList();
@@ -92,7 +94,13 @@ public class MentorService {
 
     public void deleteMentor(Long id) {
         Mentor mentor = getMentorEntityById(id);
+        if (internRepository.existsByMentorId(id)) {
+            throw new BadRequestException(
+                    "Cannot delete mentor because it has interns"
+            );
+        }
         mentorRepository.delete(mentor);
+
     }
 
     @Transactional(readOnly = true)

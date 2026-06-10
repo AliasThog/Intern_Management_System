@@ -18,7 +18,7 @@ public class Intern {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,name = "full_name")
     private String fullName;
 
     @Column(nullable = false, unique = true)
@@ -30,8 +30,10 @@ public class Intern {
 
     private String major;
 
+    @Column(name = "start_date")
     private LocalDate startDate;
 
+    @Column(name = "end_date")
     private LocalDate endDate;
 
     @Enumerated(EnumType.STRING)

@@ -6,6 +6,8 @@ import com.example.ims_spring.entity.Department;
 import com.example.ims_spring.exception.BadRequestException;
 import com.example.ims_spring.exception.ResourceNotFoundException;
 import com.example.ims_spring.repository.DepartmentRepository;
+import com.example.ims_spring.repository.InternRepository;
+import com.example.ims_spring.repository.MentorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -18,7 +20,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DepartmentService {
     private final DepartmentRepository departmentRepository;
-
+    private final InternRepository internRepository;
+    private final MentorRepository mentorRepository;
 
     @Transactional(readOnly = true)
     public List<DepartmentResponse> getDepartments(String search) {
@@ -79,6 +82,17 @@ public class DepartmentService {
 
     public void deleteDepartment(Long id) {
         Department department = getDepartmentEntityById(id);
+        if (mentorRepository.existsByDepartmentId(id)) {
+            throw new BadRequestException(
+                    "Cannot delete department because it has mentors"
+            );
+        }
+
+        if (internRepository.existsByDepartmentId(id)) {
+            throw new BadRequestException(
+                    "Cannot delete department because it has interns"
+            );
+        }
         departmentRepository.delete(department);
     }
 

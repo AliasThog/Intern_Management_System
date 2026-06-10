@@ -27,4 +27,11 @@ public interface MentorRepository extends JpaRepository<Mentor, Long> {
     boolean existsByEmailIgnoreCase(String email);
 
     boolean existsByDepartmentId(Long departmentId);
+
+    @Query("""
+            SELECT m FROM Mentor m
+            JOIN FETCH m.department d
+            ORDER BY m.fullName ASC
+            """)
+    List<Mentor> findAllWithDepartment();
 }

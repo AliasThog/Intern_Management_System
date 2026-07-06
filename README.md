@@ -55,5 +55,5 @@ The fullstack project using React+Spring boot for FPT-IS
 - Tailwind CSS
 - Axios
 - TanStack React Query
-- React Hook Form
-- Zod
+- React Hook
+- useState
